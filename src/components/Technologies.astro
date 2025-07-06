@@ -1,0 +1,65 @@
+---
+import { Icon } from "astro-icon/components";
+import { icons } from "@iconify-json/devicon/icons.json";
+
+const technologies: {
+  icon: `devicon:${keyof typeof icons}`;
+  name: string;
+}[] = [
+  {
+    icon: "devicon:astro",
+    name: "Astro",
+  },
+  {
+    icon: "devicon:react",
+    name: "React",
+  },
+  {
+    icon: "devicon:rust",
+    name: "Rust",
+  },
+  {
+    icon: "devicon:typescript",
+    name: "TypeScript",
+  },
+  {
+    icon: "devicon:java",
+    name: "Java",
+  },
+  {
+    icon: "devicon:nextjs",
+    name: "Next.js",
+  },
+  {
+    icon: "devicon:python",
+    name: "Python",
+  },
+  {
+    icon: "devicon:vuejs",
+    name: "Vue.js",
+  },
+];
+---
+
+<div class="flex flex-col items-center justify-start gap-4">
+  <h3 class="text-xl font-semibold">Tecnologias que domino</h3>
+  <div
+    class="flex flex-row flex-wrap items-center justify-center gap-6 max-w-3/4 md:max-w-md"
+  >
+    {
+      technologies.map((technology) => (
+        <div class="dropdown dropdown-hover dropdown-bottom">
+          <div tabindex="0" role="button">
+            <Icon name={technology.icon} size={32} />
+          </div>
+          <span
+            tabindex="0"
+            class="dropdown-content menu bg-base-300 rounded-box z-1 p-2 shadow-sm"
+          >
+            {technology.name}
+          </span>
+        </div>
+      ))
+    }
+  </div>
+</div>

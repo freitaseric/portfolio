@@ -1,0 +1,35 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<label class="swap swap-rotate z-10 fixed right-2 bottom-2">
+  <input id="theme-toggle" type="checkbox" />
+  <span class="swap-on">
+    <Icon name="lucide:sun" class="w-6 h-6" />
+  </span>
+  <span class="swap-off">
+    <Icon name="lucide:moon" class="w-6 h-6" />
+  </span>
+</label>
+
+<script type="module" is:inline>
+  const btn = document.getElementById("theme-toggle");
+  const html = document.documentElement;
+  const THEME_KEY = "theme";
+  const LIGHT = "corporate";
+  const DARK = "business";
+
+  const saved = localStorage.getItem(THEME_KEY);
+  if (saved) {
+    html.setAttribute("data-theme", saved);
+    btn.classList.toggle("swap-active", saved === DARK);
+  }
+
+  btn.addEventListener("click", () => {
+    const current = html.getAttribute("data-theme");
+    const next = current === LIGHT ? DARK : LIGHT;
+    html.setAttribute("data-theme", next);
+    localStorage.setItem(THEME_KEY, next);
+    btn.classList.toggle("swap-active", next === DARK);
+  });
+</script>

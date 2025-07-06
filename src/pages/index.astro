@@ -1,7 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Specialities from "../components/Specialities.astro";
+import Technologies from "../components/Technologies.astro";
+import Contact from "../components/Contact.astro";
 ---
 
 <Layout title="Eric Freitas">
-	<h1>Hello World!</h1>
+	<main class="flex flex-col justify-center items-center gap-8 mt-6">
+		<div class="flex flex-col justify-center items-center">
+			<h1 class="text-3xl font-bold">Eric Freitas</h1>
+			<h2 class="text-2xl">Desenvolvedor de Sistemas</h2>
+		</div>
+		<Specialities />
+		<Technologies />
+		<Contact />
+	</main>
 </Layout>

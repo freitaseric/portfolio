@@ -1,0 +1,47 @@
+---
+import { Icon } from "astro-icon/components";
+import { icons } from "@iconify-json/lucide/icons.json";
+
+const specialities: {
+  title: string;
+  content: string;
+  icon: `lucide:${keyof typeof icons}`;
+}[] = [
+  {
+    title: "Segurança",
+    content:
+      "Tenha a garantia de receber um sistema seguro de um profissional de qualidade.",
+    icon: "lucide:shield-check",
+  },
+  {
+    title: "Performance",
+    content:
+      "Sistemas com performance inimagináveis, para agradar seus clientes.",
+    icon: "lucide:zap",
+  },
+];
+---
+
+<div class="flex flex-col items-center justify-start gap-4">
+  <h3 class="text-xl font-semibold">Minhas Especialidades</h3>
+  <div
+    class="flex flex-col md:flex-row md:flex-wrap items-center justify-center gap-6"
+  >
+    {
+      specialities.map((speciality) => (
+        <div class="card bg-neutral text-neutral-content image-full shadow-md max-w-3/4 md:max-w-72">
+          <picture>
+            <Icon
+              name={speciality.icon}
+              class="absolute w-full h-full text-neutral-content opacity-10"
+            />
+          </picture>
+          <div class="card-body items-center text-center">
+            <h2 class="card-title">{speciality.title}</h2>
+            <p>{speciality.content}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>

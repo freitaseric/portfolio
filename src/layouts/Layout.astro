@@ -1,4 +1,7 @@
 ---
+import "../styles/global.css";
+import ModeToggle from "../components/ModeToggle.astro";
+
 interface Props {
   title: string;
 }
@@ -7,14 +10,26 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="winter">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="" />
     <title>{title}</title>
   </head>
   <body>
+    <ModeToggle />
     <slot />
+    <footer
+      class="footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4 bottom-0 absolute"
+    >
+      <aside>
+        <p>
+          Copyright © {new Date().getFullYear()} - Todos os direitos reservados
+          por Eric Freitas Sampaio
+        </p>
+      </aside>
+    </footer>
   </body>
 </html>
