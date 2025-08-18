@@ -1,43 +1,200 @@
-# Astro Starter Kit: Minimal
+# Eric Freitas - Portfólio
 
-```sh
-bun create astro@latest -- --template minimal
+Um portfólio moderno e responsivo construído com **Astro**, **Tailwind CSS** e **DaisyUI**.
+
+## ✨ Características
+
+- 🎨 Design moderno e responsivo
+- 🌙 Modo escuro/claro com toggle
+- 📱 Totalmente responsivo para todos os dispositivos
+- ⚡ Performance otimizada com Astro
+- 🎭 Animações suaves e interativas
+- 🔍 SEO otimizado
+- 🌍 Suporte a múltiplos idiomas (PT-BR/EN)
+
+## 🚀 Tecnologias Utilizadas
+
+- **Astro** - Framework web moderno
+- **Tailwind CSS** - Framework CSS utilitário
+- **DaisyUI** - Componentes UI para Tailwind
+- **TypeScript** - Tipagem estática
+- **Font Awesome** - Ícones
+- **Google Fonts** - Tipografia
+
+## 📁 Estrutura do Projeto
+
+```
+src/
+├── layouts/
+│   └── Layout.astro      # Layout principal com SEO e metadados
+├── pages/
+│   └── index.astro       # Página principal do portfólio
+├── styles/
+│   └── global.css        # Estilos globais e variáveis CSS
+public/
+├── avatar.jpg            # Foto de perfil (fallback)
+└── favicon.svg          # Ícone do site
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🎯 Seções do Portfólio
 
-## 🚀 Project Structure
+1. **Hero Section** - Apresentação principal com CTA
+2. **Sobre** - Informações pessoais e estatísticas
+3. **Habilidades** - Tecnologias e níveis de proficiência
+4. **Projetos** - Portfólio de trabalhos realizados
+5. **Contato** - Formulário e informações de contato
 
-Inside of your Astro project, you'll see the following folders and files:
+## 🛠️ Como Executar
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+### Pré-requisitos
+- Node.js 18+ ou Bun
+- npm, yarn ou bun
+
+### Instalação
+```bash
+# Clone o repositório
+git clone https://github.com/freitaseric/freitaseric.com.git
+cd freitaseric.com
+
+# Instale as dependências
+bun install
+# ou
+npm install
+# ou
+yarn install
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Desenvolvimento
+```bash
+# Inicie o servidor de desenvolvimento
+bun dev
+# ou
+npm run dev
+# ou
+yarn dev
+```
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+### Build
+```bash
+# Construa para produção
+bun build
+# ou
+npm run build
+# ou
+yarn build
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Preview
+```bash
+# Visualize a build de produção
+bun preview
+# ou
+npm run preview
+# ou
+yarn preview
+```
 
-## 🧞 Commands
+## 🎨 Personalização
 
-All commands are run from the root of the project, from a terminal:
+### Cores
+As cores principais podem ser alteradas no arquivo `src/styles/global.css`:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
+```css
+:root {
+    --primary-color: #6366f1;    /* Cor primária */
+    --secondary-color: #8b5cf6;  /* Cor secundária */
+    --accent-color: #06b6d4;     /* Cor de destaque */
+}
+```
 
-## 👀 Want to learn more?
+### Conteúdo
+- **Informações pessoais**: Edite `src/config/site.ts`
+- **Projetos**: Modifique o array `projects` no arquivo de configuração
+- **Habilidades**: Atualize o array `skills` com suas competências
+- **Links sociais**: Substitua os valores no objeto `social`
+- **GitHub**: Altere o username em `social.github` para buscar seu avatar automaticamente
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+### Imagens
+- Substitua `public/avatar.jpg` por sua foto real
+- Adicione imagens dos projetos em `public/`
+- Atualize os caminhos das imagens no código
+
+## 📱 Responsividade
+
+O portfólio é totalmente responsivo e funciona perfeitamente em:
+- 📱 Dispositivos móveis
+- 💻 Tablets
+- 🖥️ Desktops
+- 🖥️ Telas grandes
+
+## 🌙 Temas
+
+- **Retro** - Tema claro padrão
+- **Luxury** - Tema escuro elegante
+- Toggle automático com persistência no localStorage
+
+## 👤 Avatar do GitHub
+
+O portfólio busca automaticamente sua foto de perfil do GitHub:
+
+1. **Configure seu username**: Edite `src/config/site.ts` e altere `social.github`
+2. **Avatar dinâmico**: A foto é carregada automaticamente da API do GitHub
+3. **Informações extras**: Exibe seguidores, repositórios e bio do GitHub
+4. **Fallback**: Se a API falhar, usa uma imagem local como backup
+
+```typescript
+// src/config/site.ts
+social: {
+    github: "seu-username-aqui", // ← Altere para seu username do GitHub
+    // ... outras redes sociais
+}
+```
+
+## 📧 Formulário de Contato
+
+O formulário de contato está configurado mas precisa de backend para funcionar. Opções:
+- **Netlify Forms** - Adicione `netlify` ao formulário
+- **Formspree** - Serviço de formulários gratuito
+- **Backend personalizado** - Implemente sua própria API
+
+## 🚀 Deploy
+
+### Netlify
+```bash
+# Build e deploy automático
+git push origin main
+```
+
+### Vercel
+```bash
+# Deploy automático
+vercel --prod
+```
+
+### GitHub Pages
+```bash
+# Build e deploy
+npm run build
+# Faça upload da pasta dist/
+```
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Sinta-se livre para usar e modificar conforme necessário.
+
+## 🤝 Contribuições
+
+Contribuições são bem-vindas! Sinta-se livre para:
+- Reportar bugs
+- Sugerir melhorias
+- Enviar pull requests
+
+## 📞 Contato
+
+- **Email**: eric@freitaseric.com
+- **Website**: https://freitaseric.com
+- **GitHub**: [@freitaseric](https://github.com/freitaseric)
+
+---
+
+⭐ Se este projeto foi útil para você, considere dar uma estrela no repositório!

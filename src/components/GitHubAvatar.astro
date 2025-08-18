@@ -1,0 +1,83 @@
+---
+interface Props {
+    username: string;
+    fallback?: string;
+}
+
+const { username, fallback = "/avatar.jpg" } = Astro.props;
+
+let userData: any = null;
+let error = false;
+
+try {
+    const response = await fetch(`https://api.github.com/users/${username}`);
+    if (response.ok) {
+        userData = await response.json();
+    } else {
+        error = true;
+    }
+} catch (err) {
+    error = true;
+}
+
+const avatarUrl = userData?.avatar_url || fallback;
+const displayName = userData?.name || username;
+const bio = userData?.bio || '';
+const followers = userData?.followers || 0;
+const publicRepos = userData?.public_repos || 0;
+---
+
+<div class="github-avatar">
+    <div class="avatar mb-8">
+        <div class="size-36 rounded-full ring ring-white/30 ring-offset-4 ring-offset-primary mx-auto overflow-hidden">
+            {error ? (
+                <!-- Fallback para imagem local -->
+                <img src={fallback} alt={`${displayName} - Avatar`} class="w-full h-full object-cover" />
+            ) : (
+                <!-- Avatar do GitHub -->
+                <img 
+                    src={avatarUrl} 
+                    alt={`${displayName} - Avatar do GitHub`} 
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                />
+            )}
+        </div>
+    </div>
+    
+    {userData && !error && (
+        <div class="text-center mb-4">
+            <div class="flex justify-center space-x-6 text-white/80 mb-4">
+                <div class="text-center">
+                    <div class="text-lg font-semibold">{followers}</div>
+                    <div class="text-sm text-white/60">Seguidores</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-lg font-semibold">{publicRepos}</div>
+                    <div class="text-sm text-white/60">Repositórios</div>
+                </div>
+            </div>
+            {bio && (
+                <p class="text-white/80 text-sm max-w-md mx-auto mb-4">
+                    "{bio}"
+                </p>
+            )}
+        </div>
+    )}
+</div>
+
+<style>
+    .github-avatar img {
+        transition: transform 0.3s ease;
+    }
+    
+    .github-avatar img:hover {
+        transform: scale(1.05);
+    }
+    
+    @media (max-width: 768px) {
+        .github-avatar .avatar {
+            margin-bottom: 2rem;
+        }
+    }
+</style>

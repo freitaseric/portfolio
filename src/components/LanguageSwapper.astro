@@ -1,0 +1,41 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const locale = "en-us";
+const availableLocales = [
+  {
+    code: "pt-br",
+    name: "Português (Brasil)",
+  },
+  {
+    code: "en-us",
+    name: "English (US)",
+  },
+];
+---
+
+<div class="fixed bottom-6 right-6 z-50">
+  <a id="en-us" href={getRelativeLocaleUrl("en-us")} class="btn btn-xs">
+    EN-US
+  </a>
+  <a id="pt-br" href={getRelativeLocaleUrl("pt-br")} class="btn btn-xs">
+    PT-BR
+  </a>
+</div>
+
+<script>
+  import { getLocaleByPath } from "astro:i18n";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const enUs = document.querySelector("#en-us");
+    const ptBr = document.querySelector("#pt-br");
+    const locale = location.pathname.startsWith("/pt-br") ? "pt-br" : "en-us";
+
+    if (locale === "en-us") {
+      enUs?.classList.add("btn-success");
+    }
+    if (locale === "pt-br") {
+      ptBr?.classList.add("btn-success");
+    }
+  });
+</script>

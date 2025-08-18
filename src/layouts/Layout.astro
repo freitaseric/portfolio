@@ -1,0 +1,71 @@
+---
+import LanguageSwapper from "../components/LanguageSwapper.astro";
+import "../styles/global.css";
+
+interface Props {
+  locale: string;
+  title?: string;
+  description?: string;
+}
+
+const {
+  locale,
+  title = "Eric Freitas - Desenvolvedor Full Stack",
+  description = "Portfólio de Eric Freitas, desenvolvedor full stack apaixonado por criar soluções inovadoras e experiências digitais excepcionais",
+} = Astro.props;
+---
+
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta
+      name="keywords"
+      content="desenvolvedor, full stack, portfólio, Eric Freitas, programação, web development"
+    />
+    <meta name="author" content="Eric Freitas" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://freitaseric.com/" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://freitaseric.com/og-image.jpg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://freitaseric.com/" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta
+      property="twitter:image"
+      content="https://freitaseric.com/og-image.jpg"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body class="font-sans antialiased">
+    <slot />
+
+    <!-- Language Swapper -->
+    <LanguageSwapper />
+  </body>
+</html>
