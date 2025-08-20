@@ -1,23 +1,60 @@
 ---
-import { actions } from "astro:actions";
-import { siteConfig } from "../config/site";
+import axios from "axios";
+import type { Repository } from "../types/github";
 
-const { data, error } = await Astro.callAction(
-  actions.github.getPublicRepositories,
-  {}
-);
+let data: Repository[] | null = null;
+let error: string | null = null;
+
+try {
+  const response = await axios.get<Repository[]>(
+    `https://api.github.com/user/repos?visibility=all&affiliation=owner`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      },
+    }
+  );
+
+  const repositoriesWithLanguages = await Promise.all(
+    response.data.map(async (repo) => {
+      try {
+        const languagesResponse = await axios.get<Record<string, number>>(
+          `https://api.github.com/repos/${repo.owner.login}/${repo.name}/languages`,
+          {
+            headers: {
+              Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+            },
+          }
+        );
+
+        return {
+          ...repo,
+          languages: languagesResponse.data,
+        };
+      } catch (error) {
+        return {
+          ...repo,
+        };
+      }
+    })
+  );
+
+  data = repositoriesWithLanguages;
+} catch (err) {
+  error = `${err}`;
+}
 ---
 
 {
   error ? (
     <div role="alert" class="alert alert-error">
       <i class="fa-solid fa-circle-xmark" />
-      <span>{error.message}</span>
+      <span>{error}</span>
     </div>
   ) : (
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       {data
-        .sort((a, b) => b.stars - a.stars)
+        ?.sort((a, b) => b.stars - a.stars)
         .slice(0, 6)
         .map((repo) => (
           <div class="card bg-base-100 w-96 shadow-sm">
@@ -36,9 +73,10 @@ const { data, error } = await Astro.callAction(
               </h2>
               <p>{repo.description}</p>
               <div class="flex flex-row justify-center-safe">
-                {Object.keys(repo.languages).map((language) => (
-                  <div class="badge badge-soft badge-success">{language}</div>
-                ))}
+                {repo.languages &&
+                  Object.keys(repo.languages).map((language) => (
+                    <div class="badge badge-soft badge-success">{language}</div>
+                  ))}
               </div>
               <div class="card-actions justify-end">
                 {!repo.private && (

@@ -64,10 +64,3 @@ export type RepoOwner = Omit<
   | "created_at"
   | "updated_at"
 >;
-
-export interface GithubErrorResponse {
-  data: {
-    message: string;
-    documentation_url: string;
-  };
-}

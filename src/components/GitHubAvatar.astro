@@ -1,8 +1,21 @@
 ---
-import { actions } from "astro:actions";
-import { siteConfig } from "../config/site";
+import axios from "axios";
+import type { User } from "../types/github";
 
-const {data, error} = await Astro.callAction(actions.github.getUserData, {})
+let data: User | null = null
+let error = false
+
+try {
+    const response = await axios.get<User>("https://api.github.com/user", {
+        headers: {
+            Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+        },
+    });
+
+    data = response.data
+    } catch {
+        error = true
+    }
 ---
 
 <div class="github-avatar">
