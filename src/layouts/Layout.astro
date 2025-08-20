@@ -36,7 +36,10 @@ const {
     <meta property="og:url" content="https://freitaseric.com/" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://freitaseric.com/og-image.jpg" />
+    <meta
+      property="og:image"
+      content={`https://freitaseric.com/og-image?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}&locale=${locale}`}
+    />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -45,7 +48,7 @@ const {
     <meta property="twitter:description" content={description} />
     <meta
       property="twitter:image"
-      content="https://freitaseric.com/og-image.jpg"
+      content={`https://freitaseric.com/og-image?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}&locale=${locale}`}
     />
 
     <!-- Google Fonts -->
@@ -60,6 +63,12 @@ const {
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Devicon -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
     />
   </head>
   <body class="font-sans antialiased">

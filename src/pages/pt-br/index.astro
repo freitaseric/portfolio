@@ -2,8 +2,9 @@
 import Layout from "../../layouts/Layout.astro";
 import GitHubAvatar from "../../components/GitHubAvatar.astro";
 import { siteConfig } from "../../config/site";
+import GithubProjects from "../../components/GithubProjects.astro";
 
-const { personal, social, stats, skills, projects, seo } = siteConfig.pt;
+const { personal, social, stats, skills, seo } = siteConfig.pt;
 ---
 
 <Layout locale="pt-br" title={seo.title} description={seo.description}>
@@ -13,7 +14,7 @@ const { personal, social, stats, skills, projects, seo } = siteConfig.pt;
   >
     <div class="absolute inset-0 bg-black/20"></div>
     <div class="container mx-auto px-4 text-center relative z-10">
-      <GitHubAvatar username={personal.github} />
+      <GitHubAvatar />
       <h1 class="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
         {personal.name}
       </h1>
@@ -100,25 +101,25 @@ const { personal, social, stats, skills, projects, seo } = siteConfig.pt;
           >
             <div class="grid grid-cols-2 gap-6">
               <div class="text-center">
-                <div class="text-3xl font-bold text-primary">
+                <div class="text-3xl font-bold text-info">
                   {stats.experience}+
                 </div>
                 <div class="text-sm text-gray-600">Anos de Experiência</div>
               </div>
               <div class="text-center">
-                <div class="text-3xl font-bold text-secondary">
+                <div class="text-3xl font-bold text-success">
                   {stats.projects}+
                 </div>
                 <div class="text-sm text-gray-600">Projetos Concluídos</div>
               </div>
               <div class="text-center">
-                <div class="text-3xl font-bold text-accent">
+                <div class="text-3xl font-bold text-warning">
                   {stats.clients}+
                 </div>
                 <div class="text-sm text-gray-600">Clientes Satisfeitos</div>
               </div>
               <div class="text-center">
-                <div class="text-3xl font-bold text-primary">
+                <div class="text-3xl font-bold text-error">
                   {stats.technologies}+
                 </div>
                 <div class="text-sm text-gray-600">Tecnologias</div>
@@ -176,36 +177,7 @@ const { personal, social, stats, skills, projects, seo } = siteConfig.pt;
           Alguns dos meus trabalhos mais recentes
         </p>
       </div>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {
-          projects.map((project) => (
-            <div class="card bg-base-100 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <figure class="h-48 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                <i class="fas fa-code text-6xl text-primary/60" />
-              </figure>
-              <div class="card-body">
-                <h3 class="card-title text-xl">{project.title}</h3>
-                <p class="text-gray-600">{project.description}</p>
-                <div class="flex flex-wrap gap-2 mt-4">
-                  {project.technologies.map((tech) => (
-                    <div class="badge badge-outline badge-sm">{tech}</div>
-                  ))}
-                </div>
-                <div class="card-actions justify-end mt-6">
-                  <a href={project.github} class="btn btn-outline btn-sm">
-                    <i class="fab fa-github mr-2" />
-                    Código
-                  </a>
-                  <a href={project.link} class="btn btn-primary btn-sm">
-                    <i class="fas fa-external-link-alt mr-2" />
-                    Demo
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))
-        }
-      </div>
+      <GithubProjects />
     </div>
   </section>
 
@@ -295,68 +267,19 @@ const { personal, social, stats, skills, projects, seo } = siteConfig.pt;
             </div>
           </div>
         </div>
-        <div class="card bg-base-100 shadow-lg">
-          <div class="card-body">
-            <h3 class="card-title text-2xl mb-6">Envie uma Mensagem</h3>
-            <form class="space-y-4">
-              <div class="form-control">
-                <label class="label">
-                  <span class="label-text">Nome</span>
-                </label>
-                <input
-                  type="text"
-                  class="input input-bordered"
-                  placeholder="Seu nome completo"
-                />
-              </div>
-              <div class="form-control">
-                <label class="label">
-                  <span class="label-text">Email</span>
-                </label>
-                <input
-                  type="email"
-                  class="input input-bordered"
-                  placeholder="seu@email.com"
-                />
-              </div>
-              <div class="form-control">
-                <label class="label">
-                  <span class="label-text">Assunto</span>
-                </label>
-                <input
-                  type="text"
-                  class="input input-bordered"
-                  placeholder="Como posso ajudar?"
-                />
-              </div>
-              <div class="form-control">
-                <label class="label">
-                  <span class="label-text">Mensagem</span>
-                </label>
-                <textarea
-                  class="textarea textarea-bordered h-32"
-                  placeholder="Conte-me sobre seu projeto..."></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary w-full">
-                <i class="fas fa-paper-plane mr-2"></i>
-                Enviar Mensagem
-              </button>
-            </form>
-          </div>
-        </div>
       </div>
     </div>
   </section>
-
-  <!-- Footer -->
-  <footer class="bg-base-300 py-8">
-    <div class="container mx-auto px-4 text-center">
-      <p class="text-gray-600">
-        © 2025 Eric Freitas. Todos os direitos reservados.
-      </p>
-      <p class="text-sm text-gray-500 mt-2">
-        Feito com <i class="fas fa-heart text-red-500"></i> e muito café ☕
-      </p>
-    </div>
-  </footer>
 </Layout>
+
+<!-- Footer -->
+<footer
+  class="footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4"
+>
+  <aside>
+    <p>
+      Copyright © {new Date().getFullYear()} - Todos os direitos reservados por
+      Eric Freitas
+    </p>
+  </aside>
+</footer>

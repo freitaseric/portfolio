@@ -1,0 +1,60 @@
+---
+import { actions } from "astro:actions";
+import { siteConfig } from "../config/site";
+
+const { data, error } = await Astro.callAction(
+  actions.github.getPublicRepositories,
+  {}
+);
+---
+
+{
+  error ? (
+    <div role="alert" class="alert alert-error">
+      <i class="fa-solid fa-circle-xmark" />
+      <span>{error.message}</span>
+    </div>
+  ) : (
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {data
+        .sort((a, b) => b.stars - a.stars)
+        .slice(0, 6)
+        .map((repo) => (
+          <div class="card bg-base-100 w-96 shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">
+                {repo.name}
+                {repo.private ? (
+                  <div class="badge badge-soft badge-accent">
+                    <i class="fa-solid fa-lock" />
+                  </div>
+                ) : (
+                  <div class="badge badge-soft">
+                    <i class="fa-solid fa-lock-open" />
+                  </div>
+                )}
+              </h2>
+              <p>{repo.description}</p>
+              <div class="flex flex-row justify-center-safe">
+                {Object.keys(repo.languages).map((language) => (
+                  <div class="badge badge-soft badge-success">{language}</div>
+                ))}
+              </div>
+              <div class="card-actions justify-end">
+                {!repo.private && (
+                  <a href={repo.html_url} class="btn btn-info">
+                    Source
+                  </a>
+                )}
+                {!repo.private && repo.homepage && (
+                  <a href={repo.homepage} class="btn btn-info btn-soft">
+                    Website
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+    </div>
+  )
+}

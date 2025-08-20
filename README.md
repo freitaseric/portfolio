@@ -5,7 +5,7 @@ Um portfólio moderno e responsivo construído com **Astro**, **Tailwind CSS** e
 ## ✨ Características
 
 - 🎨 Design moderno e responsivo
-- 🌙 Modo escuro/claro com toggle
+- 🌙 Modo escuro/claro
 - 📱 Totalmente responsivo para todos os dispositivos
 - ⚡ Performance otimizada com Astro
 - 🎭 Animações suaves e interativas
