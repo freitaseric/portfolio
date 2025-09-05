@@ -39,7 +39,9 @@ try {
     })
   );
 
-  data = repositoriesWithLanguages;
+  data = repositoriesWithLanguages.filter(
+    (repo) => repo.languages && repo.languages.length > 0
+  );
 } catch (err) {
   error = `${err}`;
 }
@@ -72,11 +74,29 @@ try {
                 )}
               </h2>
               <p>{repo.description}</p>
-              <div class="flex flex-row justify-center-safe">
+              <div class="flex flex-row justify-center-safe gap-2">
                 {repo.languages &&
+                  repo.languages.length <= 3 &&
                   Object.keys(repo.languages).map((language) => (
                     <div class="badge badge-soft badge-success">{language}</div>
                   ))}
+                {repo.languages && repo.languages.length > 3 && (
+                  <div class="dropdown dropdown-hover">
+                    <div tabindex="0" role="button" class="btn m-1">
+                      Languages
+                    </div>
+                    <ul
+                      tabindex="0"
+                      class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+                    >
+                      {Object.keys(repo.languages).map((language) => (
+                        <div class="badge badge-soft badge-success">
+                          {language}
+                        </div>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
               <div class="card-actions justify-end">
                 {!repo.private && (
